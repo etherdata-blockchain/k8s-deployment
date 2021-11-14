@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-server-deployment
+  name: admin-server-debug-deployment
   namespace: etd
   labels:
     app: admin-server
@@ -34,12 +34,12 @@ spec:
             - name: NEXT_PUBLIC_APP_ID
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: NEXT_PUBLIC_APP_ID
             - name: NEXT_PUBLIC_STATS_SERVER
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: NEXT_PUBLIC_STATS_SERVER
             - name: STATS_SERVER
               valueFrom:
@@ -50,7 +50,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: STORAGE_MANAGEMENT_API_TOKEN
-                  name: admin
+                  name: admin-debug
             - name: MONGODB_URL
               valueFrom:
                 secretKeyRef:
@@ -59,22 +59,21 @@ spec:
             - name: PUBLIC_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: PUBLIC_SECRET
             - name: NEXT_PUBLIC_CLIENT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: NEXT_PUBLIC_CLIENT_PASSWORD
             - name: NEXT_PUBLIC_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: NEXT_PUBLIC_SECRET
             - name: STORAGE_MANAGEMENT_URL
               valueFrom:
                 secretKeyRef:
-                  name: admin
+                  name: admin-debug
                   key: STORAGE_MANAGEMENT_URL
-      restartPolicy: Always
       terminationGracePeriodSeconds: 30
