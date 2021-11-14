@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etdstats-server
+  namespace: etd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etdstats-server
+  template:
+    metadata:
+      labels:
+        app: etdstats-server
+    spec:
+      containers:
+        - name: etdstats-server
+          image: 'sirily11/etdstats-server:v1.2.1'
+          resources:
+            requests:
+              memory: "1000Mi"
+              cpu: "500m"
+            limits:
+              memory: "2000Mi"
+              cpu: "1000m"
+          ports:
+            - name: server-port
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: etdstats
+                  key: password
+            - name: rpc
+              valueFrom:
+                secretKeyRef:
+                  name: etdstats
+                  key: rpc
+            - name: mongodbURL
+              valueFrom:
+                secretKeyRef:
+                  name: etdstats
+                  key: mongodbURL
+
+      restartPolicy: Always

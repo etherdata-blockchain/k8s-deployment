@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-shared-nodes-svc-lb
+  namespace: mongodb
+spec:
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  selector:
+    app: mongo-shared-nodes-svc
+  type: LoadBalancer
+  sessionAffinity: ClientIP
+  externalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack

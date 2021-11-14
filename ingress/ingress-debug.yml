@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  namespace: etd
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - admin.debugchain.net
+      secretName: letsencrypt-staging
+  rules:
+    - host: admin.debugchain.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-service
+                port:
+                  number: 80

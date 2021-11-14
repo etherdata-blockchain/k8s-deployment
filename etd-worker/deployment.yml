@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: etd-worker
+  namespace: etd
+spec:
+  serviceName: etd-worker
+  replicas: 1
+  selector:
+    matchLabels:
+      app: etd-worker
+  template:
+    metadata:
+      labels:
+        app: etd-worker
+    spec:
+      containers:
+        - name: etd-worker
+          image: sirily11/etd-privatenet:1.12.7.hotfix.1
+          args:
+            - python3
+            - -u
+            - start_node.py
+          env:
+            - name: init_node
+              value: "false"
+            - name: http_port
+              value: "8547"
+            - name: ws_port
+              value: "8548"
+            - name: http_addr
+              value: "0.0.0.0"
+            - name: network_id
+              value: "12349"
+            - name: port
+              value: "30303"
+            - name: max_peers
+              value: "1000"
+            - name: secure_rpc
+              value: "false"
+            - name: sync_only
+              value: "true"
+
+          ports:
+            - containerPort: 30303
+              protocol: UDP
+            - containerPort: 30303
+          volumeMounts:
+            - name: data
+              mountPath: "/home/data"
+            - name: logs
+              mountPath: "/home/logs"
+          resources:
+            requests:
+              memory: 1500Mi
+              cpu: 500m
+            limits:
+              cpu: 1000m
+              memory: 2000Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 20Gi
+    - metadata:
+        name: logs
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 3Gi
+

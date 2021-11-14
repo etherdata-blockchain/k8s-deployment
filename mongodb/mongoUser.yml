@@ -1,0 +1,22 @@
+apiVersion: mongodb.com/v1
+kind: MongoDBUser
+metadata:
+  name: mongodb-user
+  namespace: mongodb
+spec:
+  passwordSecretKeyRef:
+    name: mongodb-password
+    key: password
+  username: etd
+  db: "admin"
+  mongodbResourceRef:
+    name: "mongo-shared-nodes"
+  roles:
+    - db: "admin"
+      name: "clusterAdmin"
+    - db: "admin"
+      name: "userAdminAnyDatabase"
+    - db: "admin"
+      name: "readWrite"
+    - db: "admin"
+      name: "userAdminAnyDatabase"

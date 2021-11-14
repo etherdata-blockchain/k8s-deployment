@@ -1,0 +1,22 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  namespace: mongodb
+  name: mongo-shared-nodes
+spec:
+  shardCount: 1
+  mongodsPerShardCount: 3
+  mongosCount: 1
+  configServerCount: 1
+  version: "5.0.1-ent"
+  opsManager:
+    configMapRef:
+      name: my-project
+  credentials: organization-secret
+  type: ShardedCluster
+  persistent: true
+  exposedExternally: true
+  security:
+    authentication:
+      enabled: true
+      modes: [ "SCRAM" ]
