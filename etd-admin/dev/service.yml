@@ -10,7 +10,7 @@ spec:
       port: 80
       targetPort: 8080
   selector:
-    app: admin-server-debug
+    app: admin-server
   type: ClusterIP
   sessionAffinity: ClientIP
   sessionAffinityConfig:

@@ -50,7 +50,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: STORAGE_MANAGEMENT_API_TOKEN
-                  name: admin-debug
+                  name: admin-dev
             - name: MONGODB_URL
               valueFrom:
                 secretKeyRef:
