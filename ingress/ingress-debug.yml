@@ -21,6 +21,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: admin-service-debug
+                name: admin-service
                 port:
                   number: 80

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-server-debug-deployment
+  name: admin-server-deployment
   namespace: etd
   labels:
     app: admin-server
@@ -34,12 +34,12 @@ spec:
             - name: NEXT_PUBLIC_APP_ID
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: NEXT_PUBLIC_APP_ID
             - name: NEXT_PUBLIC_STATS_SERVER
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: NEXT_PUBLIC_STATS_SERVER
             - name: STATS_SERVER
               valueFrom:
@@ -59,21 +59,21 @@ spec:
             - name: PUBLIC_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: PUBLIC_SECRET
             - name: NEXT_PUBLIC_CLIENT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: NEXT_PUBLIC_CLIENT_PASSWORD
             - name: NEXT_PUBLIC_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: NEXT_PUBLIC_SECRET
             - name: STORAGE_MANAGEMENT_URL
               valueFrom:
                 secretKeyRef:
-                  name: admin-debug
+                  name: admin
                   key: STORAGE_MANAGEMENT_URL
       terminationGracePeriodSeconds: 30
