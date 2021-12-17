@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: etdstats-server
-          image: 'sirily11/etdstats-server:v1.2.1'
+          image: 'sirily11/etdstats-server:v1.4.0'
           resources:
             requests:
               memory: "1000Mi"
