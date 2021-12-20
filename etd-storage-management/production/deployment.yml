@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: storage-management-system
-          image: 'sirily11/etd-storage-management-system:1.4.0'
+          image: 'sirily11/etd-storage-management-system:1.4.1'
           ports:
             - name: server-port
               containerPort: 80
