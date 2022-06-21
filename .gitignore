@@ -1,2 +1,3 @@
 secrets.yml
 etd-storage-management/dev/secrets.yml
+*.pem

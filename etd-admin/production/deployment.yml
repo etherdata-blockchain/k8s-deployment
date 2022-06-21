@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: admin-server
-          image: 'sirily11/etd-remote-admin-server:v1.6.4hotfix.1'
+          image: 'sirily11/etd-remote-admin-server:v4.7.1'
           ports:
             - containerPort: 8080
               protocol: TCP

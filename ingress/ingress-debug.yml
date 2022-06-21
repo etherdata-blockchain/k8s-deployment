@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - admin.debugchain.net
+        - admin.etdchain.net
       secretName: letsencrypt-staging
   rules:
-    - host: admin.debugchain.net
+    - host: admin.etdchain.net
       http:
         paths:
           - path: /

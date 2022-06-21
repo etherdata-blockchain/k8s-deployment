@@ -13,10 +13,7 @@ spec:
     - hosts:
         - storage.etdchain.net
         - stats.etdchain.net
-        - stats.etd.zone
         - admin.etdchain.net
-        - stats.debugchain.net
-##        - service.etdchain.net
       secretName: letsencrypt-prod
   rules:
     - host: storage.etdchain.net
@@ -39,26 +36,6 @@ spec:
                 name: etdstats-service
                 port:
                   number: 80
-    - host: stats.debugchain.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: etdstats-service
-                port:
-                  number: 80
-    - host: stats.etd.zone
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: etdstats-service
-                port:
-                  number: 80
     - host: admin.etdchain.net
       http:
         paths:
@@ -69,13 +46,3 @@ spec:
                 name: admin-service
                 port:
                   number: 80
-#    - host: service.etdchain.net
-#      http:
-#        paths:
-#          - path: /
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: uptime-service
-#                port:
-#                  number: 80
