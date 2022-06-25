@@ -11,16 +11,16 @@ metadata:
 spec:
   tls:
     - hosts:
-        - admin.etdchain.net
+        - api.stats.etdchain.net
       secretName: letsencrypt-staging
   rules:
-    - host: admin.etdchain.net
+    - host: api.stats.etdchain.net
       http:
         paths:
-          - path: /
+          - path: /transaction
             pathType: Prefix
             backend:
               service:
-                name: admin-service
+                name: etdstats-transaction-service
                 port:
                   number: 80

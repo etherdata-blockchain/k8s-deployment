@@ -4,26 +4,23 @@ metadata:
   name: ingress-service
   namespace: etd
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
     kubernetes.io/ingress.class: nginx
 spec:
   tls:
     - hosts:
-        - storage.etdchain.net
         - stats.etdchain.net
         - admin.etdchain.net
-      secretName: letsencrypt-prod
+        - api.etdchain.net
+      secretName: ingress-secret
   rules:
-    - host: storage.etdchain.net
+    - host: api.etdchain.net
       http:
         paths:
-          - path: /
+          - path: /stats/transaction
             pathType: Prefix
             backend:
               service:
-                name: storage-management-system-service1
+                name: etdstats-transaction-service
                 port:
                   number: 80
     - host: stats.etdchain.net
