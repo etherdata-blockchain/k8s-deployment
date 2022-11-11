@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: functions
+  namespace: functions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: functions
+  template:
+    metadata:
+      labels:
+        app: functions
+    spec:
+      containers:
+        - name: functions
+          image: 'ghcr.io/video-trading/functions:v2.1.1'
+          resources:
+            requests:
+              memory: "1000Mi"
+              cpu: "1000m"
+            limits:
+              memory: "2000Mi"
+              cpu: "2000m"
+          ports:
+            - name: server-port
+              containerPort: 3000
+              protocol: TCP
+      restartPolicy: Always

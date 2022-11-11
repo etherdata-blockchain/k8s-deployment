@@ -1,0 +1,25 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: functions-hpa
+  namespace: functions
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: functions
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          averageUtilization: 60
+          type: AverageValue
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          averageUtilization: 60
+          type: AverageValue

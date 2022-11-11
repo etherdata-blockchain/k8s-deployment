@@ -23,14 +23,34 @@ spec:
                 name: etdstats-transaction-service
                 port:
                   number: 80
-    - host: stats.etdchain.net
+    - host: api.etdchain.net
       http:
         paths:
-          - path: /
+          - path: /stats/analytics
             pathType: Prefix
             backend:
               service:
-                name: etdstats-service
+                name: etdstats-analytics-service
+                port:
+                  number: 80
+    - host: api.etdchain.net
+      http:
+        paths:
+          - path: /stats/block_info
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-block-info-service
+                port:
+                  number: 80
+    - host: api.etdchain.net
+      http:
+        paths:
+          - path: /stats/user
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-user-service
                 port:
                   number: 80
     - host: admin.etdchain.net

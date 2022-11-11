@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etdstats-block-info
+  namespace: etd
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: etdstats-block-info
+  template:
+    metadata:
+      labels:
+        app: etdstats-block-info
+    spec:
+      containers:
+        - name: etdstats-block-info
+          image: 'ghcr.io/etherdata-blockchain/etdstats/block_info_service:1.5.0'
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "300Mi"
+              cpu: "200m"
+          ports:
+            - name: server-port
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: etdstats
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_URL
+                  name: etdstats
+            - name: RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: etdstats
+                  key: RPC_URL
+      restartPolicy: Always

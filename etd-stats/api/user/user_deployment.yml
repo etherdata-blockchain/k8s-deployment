@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: etdstats-transaction
+  name: etdstats-user
   namespace: etd
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: etdstats-transaction
+      app: etdstats-user
   template:
     metadata:
       labels:
-        app: etdstats-transaction
+        app: etdstats-user
     spec:
       containers:
-        - name: etdstats-transaction
-          image: 'ghcr.io/etherdata-blockchain/etdstats/transaction_service:0.17.0'
+        - name: etdstats-user
+          image: 'ghcr.io/etherdata-blockchain/etdstats/user_service:1.6.0'
           resources:
             requests:
               memory: "100Mi"
@@ -33,15 +33,9 @@ spec:
                 secretKeyRef:
                   name: etdstats
                   key: DATABASE_URL
-            - name: RPC_URL
-              valueFrom:
-                secretKeyRef:
-                  name: etdstats
-                  key: RPC_URL
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:
                   key: REDIS_URL
                   name: etdstats
-
       restartPolicy: Always
