@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: analytics-hpa
-  namespace: etdstats
+  name: cmhk-service-hpa
+  namespace: cmhk
 spec:
   maxReplicas: 5
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: etdstats-analytics
+    name: cmhk-service
   metrics:
     - type: Resource
       resource:

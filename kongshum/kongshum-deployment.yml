@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: etdstats-analytics
-  namespace: etdstats
+  name: kongshum
+  namespace: kongshum
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: etdstats-analytics
+      app: kongshum
   template:
     metadata:
       labels:
-        app: etdstats-analytics
+        app: kongshum
     spec:
       containers:
-        - name: etdstats-analytics
-          image: 'ghcr.io/etherdata-blockchain/etdstats/analytics_service:1.16.1'
+        - name: kongshum
+          image: 'ghcr.io/meta-metopia/kongshum-backend:v1.0.9'
           resources:
             requests:
               memory: "100Mi"
@@ -25,12 +25,17 @@ spec:
               cpu: "200m"
           ports:
             - name: server-port
-              containerPort: 8080
+              containerPort: 3000
               protocol: TCP
           env:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: etdstats
+                  name: kongshum
                   key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  key: REDIS_URL
+                  name: kongshum
       restartPolicy: Always

@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: user-hpa
-  namespace: etd
+  name: kongshum-hpa
+  namespace: kongshum
 spec:
-  maxReplicas: 5
+  maxReplicas: 2
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: etdstats-user
+    name: kongshum
   metrics:
     - type: Resource
       resource:

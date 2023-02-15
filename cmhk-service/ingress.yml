@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  namespace: cmhk
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - cmhk.etdstatsapi.net
+      secretName: ingress-secret
+  rules:
+    - host: cmhk.etdstatsapi.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cmhk-service-service
+                port:
+                  number: 80

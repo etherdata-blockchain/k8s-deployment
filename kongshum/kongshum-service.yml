@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: etdstats-user-service
-  namespace: etd
+  name: kongshum-service
+  namespace: kongshum
 spec:
   ports:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 3000
   selector:
-    app: etdstats-user
+    app: kongshum

@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: analytics-hpa
-  namespace: etdstats
+  name: metopia-co-hpa
+  namespace: metopia
 spec:
-  maxReplicas: 5
+  maxReplicas: 2
   minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: etdstats-analytics
+    name: metopia-co
   metrics:
     - type: Resource
       resource:

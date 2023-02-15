@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: etdstats-analytics-service
-  namespace: etdstats
+  name: metopia-co-service
+  namespace: metopia
 spec:
   ports:
     - name: http
       protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 3000
   selector:
-    app: etdstats-analytics
+    app: metopia-co

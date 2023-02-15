@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: block-fetcher
-  namespace: etd
+  namespace: etdstats
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
             - name: block-fetcher
-              image: ghcr.io/etherdata-blockchain/cron-jobs/block_fetcher:v1.3.0
+              image: ghcr.io/etherdata-blockchain/cron-jobs/block_fetcher:v4.1.9
               imagePullPolicy: IfNotPresent
               env:
                 - name: RPC_URL
@@ -24,6 +24,8 @@ spec:
                     secretKeyRef:
                       key: DATABASE_URL
                       name: block-fetcher
+                - name: DEFAULT_DB
+                  value: etdstats
           restartPolicy: OnFailure
 
   concurrencyPolicy: Forbid

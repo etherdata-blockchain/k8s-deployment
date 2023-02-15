@@ -2,7 +2,7 @@ apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: transaction-hpa
-  namespace: etd
+  namespace: etdstats
 spec:
   maxReplicas: 5
   minReplicas: 1

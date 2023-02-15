@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: etdstats-transaction-service
-  namespace: etd
+  namespace: etdstats
 spec:
   ports:
     - name: http

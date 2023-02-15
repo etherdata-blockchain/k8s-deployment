@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: etdstats-user
-  namespace: etd
+  name: cmhk-service
+  namespace: cmhk
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: etdstats-user
+      app: cmhk-service
   template:
     metadata:
       labels:
-        app: etdstats-user
+        app: cmhk-service
     spec:
       containers:
-        - name: etdstats-user
-          image: 'ghcr.io/etherdata-blockchain/etdstats/user_service:1.6.0'
+        - name: cmhk-service
+          image: 'ghcr.io/meta-metopia/cmhk-service:v1.3.0'
           resources:
             requests:
               memory: "100Mi"
@@ -25,17 +25,27 @@ spec:
               cpu: "200m"
           ports:
             - name: server-port
-              containerPort: 8080
+              containerPort: 3000
               protocol: TCP
           env:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: etdstats
+                  name: cmhk
                   key: DATABASE_URL
+            - name: RPC_URL
+              valueFrom:
+                secretKeyRef:
+                  key: RPC_URL
+                  name: cmhk
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:
                   key: REDIS_URL
-                  name: etdstats
+                  name: cmhk
+            - name: CONTRACT_ADDRESS
+              valueFrom:
+                secretKeyRef:
+                  name: cmhk
+                  key: CONTRACT_ADDRESS
       restartPolicy: Always

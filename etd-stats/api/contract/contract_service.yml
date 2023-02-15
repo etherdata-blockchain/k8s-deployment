@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: etdstats-analytics-service
+  name: etdstats-contract-service
   namespace: etdstats
 spec:
   ports:
@@ -10,4 +10,4 @@ spec:
       port: 80
       targetPort: 8080
   selector:
-    app: etdstats-analytics
+    app: etdstats-contract

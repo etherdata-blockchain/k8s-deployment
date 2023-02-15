@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: functions
-  namespace: functions
+  name: metopia-co
+  namespace: metopia
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: functions
+      app: metopia-co
   template:
     metadata:
       labels:
-        app: functions
+        app: metopia-co
     spec:
       containers:
-        - name: functions
-          image: 'ghcr.io/video-trading/functions:v2.1.1'
+        - name: metopia-co
+          image: 'ghcr.io/meta-metopia/metopia-co:v1.0.26'
           resources:
             requests:
-              memory: "1000Mi"
-              cpu: "1500m"
+              memory: "100Mi"
+              cpu: "100m"
             limits:
-              memory: "2000Mi"
-              cpu: "2000m"
+              memory: "300Mi"
+              cpu: "200m"
           ports:
             - name: server-port
               containerPort: 3000

@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot
+  namespace: metopia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatbot
+  template:
+    metadata:
+      labels:
+        app: chatbot
+    spec:
+      containers:
+        - name: chatbot
+          image: 'ghcr.io/meta-metopia/chatbot:v1.1.1'
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "300Mi"
+              cpu: "200m"
+          ports:
+            - name: server-port
+              containerPort: 8080
+              protocol: TCP
+          command: ["./Run", "serve", "--hostname", "0.0.0.0", "--port", "8080"]
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: metopia-secrets
+                  key: DATABASE_URL
+            - name: TELEGRAM_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: metopia-secrets
+                  key: TELEGRAM_WEBHOOK_URL
+            - name: TELEGRAM_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: metopia-secrets
+                    key: TELEGRAM_KEY
+            - name: BLOOM_API_KEY
+              valueFrom:
+                  secretKeyRef:
+                    name: metopia-secrets
+                    key: BLOOM_API_KEY
+            - name: BLOOM_ENDPOINT
+              valueFrom:
+                  secretKeyRef:
+                    name: metopia-secrets
+                    key: BLOOM_ENDPOINT
+            - name: AZURE_SPEECH_KEY
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AZURE_SPEECH_KEY
+            - name: AWS_ACCESS_KEY
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_ACCESS_KEY
+            - name: AWS_BUCKET
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_BUCKET
+            - name: AWS_ENDPOINT
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_ENDPOINT
+            - name: AWS_PUBLIC_ENDPOINT
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_PUBLIC_ENDPOINT
+            - name: AWS_REGION
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_REGION
+            - name: AWS_SECRET_KEY
+              valueFrom:
+                  secretKeyRef:
+                      name: metopia-secrets
+                      key: AWS_SECRET_KEY
+            - name: LOG_LEVEL
+              value: "debug"
+      restartPolicy: Always

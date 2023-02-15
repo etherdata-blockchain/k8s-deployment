@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  namespace: etdstats
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+    - hosts:
+        - etdstatsapi.net
+      secretName: ingress-secret
+  rules:
+    - host: etdstatsapi.net
+      http:
+        paths:
+          - path: /stats/transaction
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-transaction-service
+                port:
+                  number: 80
+    - host: etdstatsapi.net
+      http:
+        paths:
+          - path: /stats/analytics
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-analytics-service
+                port:
+                  number: 80
+    - host: etdstatsapi.net
+      http:
+        paths:
+          - path: /stats/block_info
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-block-info-service
+                port:
+                  number: 80
+    - host: etdstatsapi.net
+      http:
+        paths:
+          - path: /stats/contract
+            pathType: Prefix
+            backend:
+              service:
+                name: etdstats-contract-service
+                port:
+                  number: 80

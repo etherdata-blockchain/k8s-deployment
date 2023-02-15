@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: event-scanner
+  namespace: etdstats
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: event-scanner
+              image: ghcr.io/etherdata-blockchain/cron-jobs/event_scanner:v4.1.13
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: endpoint
+                  value: https://rpc.etdchain.net
+                - name: url
+                  value: http://etdstats-contract-service/stats/contract
+                - name: pk
+                  valueFrom:
+                    secretKeyRef:
+                      key: PRIVATE_KEY
+                      name: block-fetcher
+
+
+          restartPolicy: OnFailure
+
+  concurrencyPolicy: Forbid
